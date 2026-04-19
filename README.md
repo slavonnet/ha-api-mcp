@@ -80,12 +80,15 @@ The repository enforces:
 - API docstring quality checks
 - public export integrity checks
 
-## Release flow
+## Release flow (PR-driven)
 
-1. Update version in `pyproject.toml`.
-2. Create and push tag, e.g. `v0.1.0`.
-3. GitHub release workflow builds source/wheel artifacts.
-4. (Optional) publish to PyPI.
+The project uses an accumulated-changes release process:
+
+1. Merge feature PRs into `main`.
+2. When ready for a release, update version in `pyproject.toml` on `main`.
+3. Run the **Release** workflow manually (`workflow_dispatch`) and provide `version` (for example `0.2.0`).
+4. Workflow creates git tag `v<version>`, builds artifacts, and creates GitHub Release.
+5. PyPI publish is optional and runs only if repository variable `PYPI_PUBLISH_ENABLED=true`.
 
 ## License
 
