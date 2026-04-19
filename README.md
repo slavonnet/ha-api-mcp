@@ -71,8 +71,6 @@ python3 -m pip install dist/ha_api_mcp-0.1.0-py3-none-any.whl
 
 ## Home Assistant compatibility
 
-Release compatibility verified against:
-
 - ✅ 2026.3
 
 ## License
