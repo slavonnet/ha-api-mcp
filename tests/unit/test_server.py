@@ -550,6 +550,40 @@ async def test_stop_without_start_is_noop() -> None:
     await server.stop()
 
 
+@pytest.mark.asyncio
+async def test_stop_with_existing_site_stops_site_and_runner() -> None:
+    cache = SchemaCache(ttl_seconds=60)
+    proxy = AsyncMock()
+    settings = McpSettings(
+        bind_address="",
+        port=0,
+        auth_token="",
+        target_user="owner",
+        read_only=False,
+        scope_allowlist=(),
+        schema_cache_ttl=60,
+        timeout=10,
+        base_url="http://ha.local:8123",
+    )
+    server = McpHttpServer(
+        settings=settings,
+        catalog=_EmptyCatalog(),  # type: ignore[arg-type]
+        proxy=proxy,
+        schema_cache=cache,
+    )
+    site = AsyncMock()
+    runner = AsyncMock()
+    server._site = site
+    server._runner = runner
+
+    await server.stop()
+
+    site.stop.assert_awaited_once()
+    runner.cleanup.assert_awaited_once()
+    assert server._site is None
+    assert server._runner is None
+
+
 def test_catalog_like_base_raises_not_implemented() -> None:
     from ha_api_mcp.server import _CatalogLike
 
