@@ -1,11 +1,11 @@
-# Документация ha-api-mcp
+# ha-api-mcp Documentation
 
-Актуальная документация по пакету:
+Current package documentation:
 
-- API reference: формируется из исходников (`src/ha_api_mcp`)
-- архитектурные заметки: в этом каталоге
+- API reference: generated from source modules in `src/ha_api_mcp`
+- architecture notes: stored in this `docs/` directory
 
-План развития документации:
+Documentation roadmap:
 
-- автоматическая генерация API reference из docstring
-- публикация статического сайта документации
+- automated API reference generation from docstrings
+- publishing a static documentation website

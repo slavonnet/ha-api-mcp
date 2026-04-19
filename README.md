@@ -2,26 +2,26 @@
 
 Reusable Home Assistant API core for MCP-compatible servers.
 
-## О пакете
+## About the package
 
-`ha-api-mcp` — выделенный reusable core для работы с Home Assistant API из MCP-инструментов.
-Пакет можно подключать независимо от Home Assistant integration-слоя.
+`ha-api-mcp` is a reusable core for exposing Home Assistant API capabilities through MCP tools.
+It is designed to be used as an independent Python package, separate from Home Assistant integration adapters.
 
-## Как установить
+## Installation
 
-### Из пакетов
+### Install from package index
 
 ```bash
 python3 -m pip install ha-api-mcp
 ```
 
-### Из GitHub релиза/тега
+### Install from GitHub release/tag
 
 ```bash
 python3 -m pip install "git+https://github.com/slavonnet/ha-api-mcp.git@v0.1.0"
 ```
 
-### Собрать самому
+### Build from source
 
 ```bash
 python3 -m pip install build
@@ -29,45 +29,52 @@ python3 -m build
 python3 -m pip install dist/ha_api_mcp-0.1.0-py3-none-any.whl
 ```
 
-## Возможности
+## Features
 
-- обнаружение API endpoint-ов Home Assistant из runtime router
-- генерация MCP tools schema
-- валидация аргументов вызова
-- proxy MCP call -> Home Assistant REST API
-- scope-filtering и read-only ограничения
-- TTL cache для схем инструментов
-- встроенный HTTP MCP server (`/health`, `/mcp/tools`, `/mcp/call`)
+- ✅ Home Assistant API endpoint discovery from runtime router
+- ✅ MCP tools schema generation
+- ✅ Tool call argument validation
+- ✅ MCP call -> Home Assistant REST API proxy translation
+- ✅ Scope filtering and read-only enforcement
+- ✅ TTL cache for tool schemas
+- ✅ Embedded HTTP MCP server (`/health`, `/mcp/tools`, `/mcp/call`)
 
-## Роадмап
+## Roadmap
 
-- создание документации из исходников
+- 🔜 Generate package documentation from source code/docstrings
 
-## Документация
+## Documentation
 
-- удобная документация: [docs/README.md](docs/README.md)
+- 📚 Package docs: [docs/README.md](docs/README.md)
 
-## Примеры использования
+## Usage examples
 
-- см. [examples/basic_server.py](examples/basic_server.py)
+- ▶️ See [examples/basic_server.py](examples/basic_server.py)
 
-## Безопасность
+## Dependency security
 
-Безопасность зависимостей проверена: **13.03.2026**.
+- ✅ Dependency security gate is enforced in CI (`pip-audit`)
+- ✅ Dependency security reviewed on: **2026-03-13**
 
-## Покрытие
+## Coverage
 
-- Документация: **100%**
-- Coverage: **100%**
+- ✅ Documentation coverage: **100%**
+- ✅ Test coverage: **100%**
 
-## Тесты
+## Test matrix
 
-- юнит-тесты
-- версионные тесты
-- quality-тесты (докстринги и публичные экспорты)
+- ✅ Unit tests
+- ✅ Version compatibility tests (migrated subset)
+- ✅ Quality tests (API docstrings and public exports)
+- ⚪ Integration flow tests (Client -> MCP -> HA API mock): remain in integration repository
+- ⚪ Install smoke tests: remain in integration repository
 
-## Совместимость с Home Assistant
+## Home Assistant compatibility
 
-Релиз проверен на совместимость с HA версиями:
+Release compatibility verified against:
 
-- 2026.3
+- ✅ 2026.3
+
+## License
+
+MIT License. See [LICENSE](LICENSE).
