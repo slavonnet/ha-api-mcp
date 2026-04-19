@@ -24,6 +24,11 @@ jobs:
           python -m pip install -r requirements-dev.txt
           python -m pip install -e ".[test]"
 
+      - name: Dependency security audit
+        run: |
+          python -m pip_audit -r requirements.txt --strict
+          python -m pip_audit -r requirements-dev.txt --strict
+
       - name: Lint
         run: python -m ruff check .
 
