@@ -2,94 +2,72 @@
 
 Reusable Home Assistant API core for MCP-compatible servers.
 
-## What this package provides
+## О пакете
 
-`ha-api-mcp` extracts reusable logic that was previously embedded in
-`ha-api-mcp` integration-core code, including:
+`ha-api-mcp` — выделенный reusable core для работы с Home Assistant API из MCP-инструментов.
+Пакет можно подключать независимо от Home Assistant integration-слоя.
 
-- API endpoint discovery from Home Assistant router
-- deterministic tool schema generation for MCP clients
-- request argument validation
-- proxy translation between MCP tool calls and HA REST API
-- minimal aiohttp MCP server (`/health`, `/mcp/tools`, `/mcp/call`)
-- scope allowlist and read-only enforcement
-- TTL cache for generated tools schema
+## Как установить
 
-## Installation
-
-### From PyPI (recommended after publish)
+### Из пакетов
 
 ```bash
 python3 -m pip install ha-api-mcp
 ```
 
-### From GitHub tag
+### Из GitHub релиза/тега
 
 ```bash
 python3 -m pip install "git+https://github.com/slavonnet/ha-api-mcp.git@v0.1.0"
 ```
 
-## Quick usage example
-
-```python
-from ha_api_mcp.catalog import ApiCatalog
-from ha_api_mcp.models import McpSettings
-from ha_api_mcp.proxy import ApiProxy
-from ha_api_mcp.schema import SchemaCache
-from ha_api_mcp.server import McpHttpServer
-
-settings = McpSettings(
-    bind_address="0.0.0.0",
-    port=8124,
-    auth_token="",
-    target_user="owner",
-    read_only=False,
-    scope_allowlist=(),
-    schema_cache_ttl=300,
-    timeout=15,
-    base_url="http://homeassistant.local:8123",
-)
-
-catalog = ApiCatalog(hass=your_hass_object)
-proxy = ApiProxy(settings)
-cache = SchemaCache(ttl_seconds=settings.schema_cache_ttl)
-server = McpHttpServer(
-    settings=settings,
-    catalog=catalog,
-    proxy=proxy,
-    schema_cache=cache,
-)
-```
-
-## Development and quality gates
+### Собрать самому
 
 ```bash
-python3 -m pip install -r requirements-dev.txt
-python3 -m pip install -e ".[test]"
-python3 -m ruff check .
-python3 -m mypy src tests
-python3 -m pytest -q --cov=src --cov-branch --cov-fail-under=100 --cov-report=term-missing
+python3 -m pip install build
+python3 -m build
+python3 -m pip install dist/ha_api_mcp-0.1.0-py3-none-any.whl
 ```
 
-The repository enforces:
+## Возможности
 
-- linting with Ruff
-- type checks with mypy
-- unit + quality tests
-- **100% branch coverage** gate
-- API docstring quality checks
-- public export integrity checks
+- обнаружение API endpoint-ов Home Assistant из runtime router
+- генерация MCP tools schema
+- валидация аргументов вызова
+- proxy MCP call -> Home Assistant REST API
+- scope-filtering и read-only ограничения
+- TTL cache для схем инструментов
+- встроенный HTTP MCP server (`/health`, `/mcp/tools`, `/mcp/call`)
 
-## Release flow (PR-driven)
+## Роадмап
 
-The project uses an accumulated-changes release process:
+- создание документации из исходников
 
-1. Merge feature PRs into `main`.
-2. When ready for a release, update version in `pyproject.toml` on `main`.
-3. Run the **Release** workflow manually (`workflow_dispatch`) and provide `version` (for example `0.2.0`).
-4. Workflow creates git tag `v<version>`, builds artifacts, and creates GitHub Release.
-5. PyPI publish is optional and runs only if repository variable `PYPI_PUBLISH_ENABLED=true`.
+## Документация
 
-## License
+- удобная документация: [docs/README.md](docs/README.md)
 
-MIT License. See [LICENSE](LICENSE).
+## Примеры использования
+
+- см. [examples/basic_server.py](examples/basic_server.py)
+
+## Безопасность
+
+Безопасность зависимостей проверена: **13.03.2026**.
+
+## Покрытие
+
+- Документация: **100%**
+- Coverage: **100%**
+
+## Тесты
+
+- юнит-тесты
+- версионные тесты
+- quality-тесты (докстринги и публичные экспорты)
+
+## Совместимость с Home Assistant
+
+Релиз проверен на совместимость с HA версиями:
+
+- 2026.3
