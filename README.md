@@ -80,13 +80,6 @@ The repository enforces:
 - API docstring quality checks
 - public export integrity checks
 
-## Release flow
-
-1. Update version in `pyproject.toml`.
-2. Create and push tag, e.g. `v0.1.0`.
-3. GitHub release workflow builds source/wheel artifacts.
-4. (Optional) publish to PyPI.
-
 ## License
 
 MIT License. See [LICENSE](LICENSE).
